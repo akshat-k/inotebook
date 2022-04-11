@@ -1,6 +1,7 @@
 
 import noteContext from '../context/notes/NoteContext';
 import React, { useContext } from 'react';
+import card from './card.JPG'
 
 const NoteItem = (props) => {
     const context = useContext(noteContext);
@@ -9,7 +10,7 @@ const NoteItem = (props) => {
     return (
         <div className="col-md-3 my-2" >
             <div className="card">
-                <div className="card-body">
+                <div className="card-body" style={{height: '18vh',backgroundImage: `url(${card})`}}>
                     <i className="fa-solid fa-trash-can mx-2"  onClick={()=>{deleteNote(note._id)}}></i>
                     <i className="fa-solid fa-pen mx-2 "  onClick = {()=>{updateNote(note)}}></i>
                     <h5 className="card-title">{note.title}</h5>

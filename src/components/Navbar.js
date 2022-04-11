@@ -5,13 +5,12 @@ const Navbar = () => {
     let location = useLocation();
     let navigate = useNavigate();
     useEffect(() => {
-        console.log(location); // location is an object which contains hash,key,pathname,search,state
+       // console.log(location); // location is an object which contains hash,key,pathname,search,state
     }, [location]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/mainhome')
-
+        navigate('/mainhome');
     }
 
     return <div>
@@ -25,7 +24,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname === "/mainhome" ? "active" : ""}`} aria-current="page" to="/mainhome">Home</Link>
+                            <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>

@@ -2,28 +2,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 //import { useAlert } from 'react-alert'
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+//import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 
 
 const Signup = () => {
-  /* const options = {
-    // you can also just use 'bottom center'
-    position: positions.BOTTOM_CENTER,
-    timeout: 5000,
-    offset: '30px',
-    // you can also just use 'scale'
-    transition: transitions.SCALE
-  } */
 
-
-  const [credential, setCredential] = useState({ name: "", email: "", password: "" })
+  const [credential, setCredential] = useState({ name: "", email: "", password: "", cpassword: "" })
   let navigate = useNavigate();
   //const alert = useAlert()
-  const { name, email, password } = credential;
+  const { name, email, password, cpassword } = credential;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Inside handle Submit");
+    if (password !== cpassword) {
+      window.alert("Password did not matched");
+      return
+    }
     const response = await fetch("http://localhost:5000/api/auth/createuser", {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -34,24 +28,21 @@ const Signup = () => {
     });
 
     const json = await response.json()
-    console.log(json);
     if (json.sucess) {
 
       //Save auth token and re direct
       localStorage.setItem('token', json.authToken);
       alert("User created successfully")
-      navigate('/mainhome')
-      
+      navigate('/')
+
     }
     else {
-      // alert.show('Invalid','success')
       alert(json.error);
     }
 
   }
 
   const onChange = (e) => {
-    console.log("On change function");
     setCredential({ ...credential, [e.target.name]: e.target.value })
   }
 

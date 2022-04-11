@@ -14,9 +14,8 @@ const NoteState = (props) => {
   //Get All Notes
 
   const getAllNotes = async () => {
-    console.log("Akshat  "+localStorage.getItem('token'));
     const response = await fetch(`${localhost}/api/notes/fetchallnotes`, {
-      
+
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
@@ -25,9 +24,7 @@ const NoteState = (props) => {
     });
 
     const json = await response.json();
-    console.log(json);
     setNotes(json);
-
   }
 
 
@@ -60,9 +57,7 @@ const NoteState = (props) => {
     });
 
     const json = response.json();
-    console.log(json);
-
-    console.log("Note with id " + id + " is deleted")
+   
     const newNote = notes.filter((note) => { return note._id !== id })
     setNotes(newNote)
 
@@ -85,7 +80,6 @@ const NoteState = (props) => {
     let newNote = JSON.parse(JSON.stringify(notes))
 
     // logic to edit in client
-    console.log("Note with id " + id + " is now editable")
     for (let index = 0; index < newNote.length; index++) {
       const element = newNote[index];
       if (element._id === id) {

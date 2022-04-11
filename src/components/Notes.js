@@ -5,20 +5,17 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import { useNavigate } from "react-router-dom";
 
+
 const Notes = () => {
     let navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, getAllNotes, editNote } = context;
     useEffect(() => {
-        if(localStorage.getItem('token')){
-            console.log("it is available");
-            
+        if (localStorage.getItem('token')) {
             getAllNotes()
-            console.log("New console"+note.Notes);
         }
-        else{
-            console.log("In else condition");
-            navigate('/login')
+        else {
+            navigate('/mainhome')
         }
 
     }, [])
@@ -36,14 +33,11 @@ const Notes = () => {
 
     const handleclick = (e) => {
         //e.preventDefault(); // To prevent page reload
-        console.log("katyaya" + note.etitle, note.edescription, note.etag);
-
         editNote(note.id, note.etitle, note.edescription, note.etag)
         ref1.current.click();
     }
 
     const onchange = (e) => {
-        console.log("On change function");
         setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
@@ -51,9 +45,7 @@ const Notes = () => {
             <AddNote />
 
             <button ref={ref} type="button" className="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
             </button>
-
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -73,7 +65,7 @@ const Notes = () => {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onchange} minLength={5} required />
+                                    <textarea type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onchange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Tag</label>
@@ -96,9 +88,8 @@ const Notes = () => {
                 <div className="container">
                     {notes.length === 0 && ' No notes to Display '}
                 </div>
-               
+
                 {notes.map((note) => {
-                        console.log("key is --->"+note._id);                       
                     return <NoteItem key={note._id} updateNote={updateNote} note={note} />
                 })}
             </div>

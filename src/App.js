@@ -20,7 +20,7 @@ function App() {
     <NoteState>
     <Router>
       <Navbar />
-      <Alert message={"This is a check of Alert"}/>
+      <Alert message={"Welcome To iNoteBook"}/>
       <div className="container" >
       <Routes>
       <Route exact path="/mainhome" element={<MainHome />} />

@@ -9,7 +9,6 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Inside handle Submit");
         const response = await fetch("http://localhost:5000/api/auth/login", {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -20,7 +19,6 @@ const Login = () => {
         });
 
         const json = await response.json()
-        console.log(json);
         if (json.sucess) {
 
             //Save auth token and re direct
@@ -28,13 +26,12 @@ const Login = () => {
             navigate('/')
         }
         else {
-            alert("Invalid");
+            alert("Username or password does not exists");
             navigate('/login')
         }
 
     }
     const onChange = (e) => {
-        console.log("On change function");
         setCredential({ ...credential, [e.target.name]: e.target.value })
     }
 
@@ -43,12 +40,12 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
                 <div className="container">
-                    <div className="mb-3">
+                    <div className="mb-3" style={{ width: '500px' }}>
                         <label htmlFor="email">Email address</label>
                         <input type="email" className="form-control" value={credential.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" />
                         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3" style={{ width: '500px' }}>
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" value={credential.password} onChange={onChange} id="password" name="password" placeholder="Password" />
                     </div>
@@ -56,9 +53,6 @@ const Login = () => {
                     <button type="submit" className="btn btn-primary">Login</button>
                 </div>
             </form>
-
-
-
         </div>
     )
 }
